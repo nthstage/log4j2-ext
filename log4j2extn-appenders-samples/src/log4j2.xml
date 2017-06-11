@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="error" name="MyApp" packages="com.nthstage.log4j2extn.appender.solr">
+  <Appenders>
+  	<Console name="STDOUT" />
+    <SOLR name="solrAppender">
+    	<HttpSlorClientSource solrServerHost="http://localhost:8983/solr/" solrCore="my_app_logs"/>
+    	<Field name="LOG_ID" literal="LOGGING.APPLICATION_LOG_SEQUENCE.NEXTVAL" /> 
+    	<Field name="HOST" pattern="%map{host}" />
+    	<Field name="APP_NAME" literal="myTestingApplication" /> 
+    	<Field name="SERVICE_NAME" pattern="%map{service}" />
+    	<Field name="DURATION" pattern="%map{duration}" />
+    	<Field name="MESSAGE" pattern="%map{message}" />
+    	<Field name="ERROR_CODE" pattern="%map{errorCode}" />
+    </SOLR>
+  </Appenders>
+  <Loggers>
+    <Root level="debug">
+	<AppenderRef ref="STDOUT"/>
+      <AppenderRef ref="solrAppender"/>
+    </Root>
+  </Loggers>
+</Configuration>
